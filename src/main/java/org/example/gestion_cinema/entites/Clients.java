@@ -18,4 +18,10 @@ public class Clients {
     private Long id;
     private String nom;
     private String tel;
+
+    public Clients(Long id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
+
 }

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class ClientServiceImp implements IClientService {
     @Autowired
-    private final ClientRepository clientRepository;
+    private final  ClientRepository clientRepository;
     @Autowired
     private final ModelMapper modelMapper;
     @Override
@@ -64,4 +64,6 @@ public class ClientServiceImp implements IClientService {
         clientRepository.deleteById(id);
 
     }
+
+
 }
