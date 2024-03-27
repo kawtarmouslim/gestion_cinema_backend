@@ -23,13 +23,16 @@ public class Ticket implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_client")
     private Clients client;
-    //    private String nomClient;
-    //    @ManyToOne
+//    private Long id;
+//    private double prix;
+//    @ManyToOne
 //    @JoinColumn(name = "place_id")
 //    private Place place;
-//
-//    @ManyToOne
+//    @ManyToOne(cascade = CascadeType.PERSIST) // Adjusted to include cascade option
 //    @JoinColumn(name = "projection_id")
 //    private Projection projection;
-
+//    @ManyToOne
+//    @JoinColumn(name = "id_client")
+//    private Clients client;
 }
+

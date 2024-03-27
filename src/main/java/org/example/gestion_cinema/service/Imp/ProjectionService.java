@@ -62,6 +62,11 @@ public class ProjectionService implements IProjectionService {
         }
     }
 
-    // Autres méthodes du service...
+    @Override
+    public ProjectionDto getProjectionById(Long id) {
+        Optional<Projection> projectionOptional = projectionRepository.findById(id);
+        return projectionOptional.map(projection -> modelMapper.map(projection, ProjectionDto.class)).orElse(null);
+    }
+
     }
 

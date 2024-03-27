@@ -12,4 +12,6 @@ public interface IPlaceService {
     PlaceDto updatePlace(Long placeId, PlaceDto placeDto);
 
     void deletePlace(Long placeId);
+
+    PlaceDto getPlaceById(Long id);
 }

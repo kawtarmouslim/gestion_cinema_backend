@@ -14,10 +14,10 @@ import java.util.List;
 public class TicketController {
     @Autowired
     private ITicketService ticketService;
-    @PostMapping
-    public ResponseEntity<TicketDto> createTicket(@RequestBody TicketDto ticketDto) {
-        TicketDto createdTicket = ticketService.createTicket(ticketDto);
-        return new ResponseEntity<>(createdTicket, HttpStatus.CREATED);
+    @PostMapping("/add")
+    public ResponseEntity<TicketDto> creerTicket(@RequestBody TicketDto ticketDto) {
+        TicketDto nouveauBillet = ticketService.createTicket(ticketDto);
+        return new ResponseEntity<>(nouveauBillet, HttpStatus.CREATED);
     }
 
     @GetMapping

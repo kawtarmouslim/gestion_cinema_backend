@@ -13,15 +13,10 @@ import java.util.Collection;
 
 @Entity @Data @NoArgsConstructor @AllArgsConstructor @ToString
 public class Place implements Serializable {
-    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int numero;
-    @ManyToOne
-     private  Salle salle;
-
-    @OneToMany(mappedBy = "place")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonIgnore
-    private Collection<Ticket>tickets;
+    private String numero;
+    private String rangee;
 
 }

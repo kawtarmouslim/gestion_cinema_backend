@@ -15,27 +15,12 @@ public class PlaceController {
     @Autowired
     private IPlaceService placeService;
 
-    @GetMapping
-    public ResponseEntity<List<PlaceDto>> getAllPlaces() {
-        List<PlaceDto> places = placeService.getAllPlaces();
-        return ResponseEntity.ok(places);
-    }
-
     @PostMapping
-    public ResponseEntity<PlaceDto> createPlace(@RequestBody PlaceDto placeDto) {
-        PlaceDto createdPlace = placeService.createPlace(placeDto);
-        return new ResponseEntity<>(createdPlace, HttpStatus.CREATED);
+    public ResponseEntity<PlaceDto> creerPlace(@RequestBody PlaceDto placeDto) {
+        PlaceDto placeCree = placeService.createPlace(placeDto);
+        return new ResponseEntity<>(placeCree, HttpStatus.CREATED);
+    }
     }
 
-    @PutMapping("/{placeId}")
-    public ResponseEntity<PlaceDto> updatePlace(@PathVariable Long placeId, @RequestBody PlaceDto placeDto) {
-        PlaceDto updatedPlace = placeService.updatePlace(placeId, placeDto);
-        return ResponseEntity.ok(updatedPlace);
-    }
 
-    @DeleteMapping("/{placeId}")
-    public ResponseEntity<Void> deletePlace(@PathVariable Long placeId) {
-        placeService.deletePlace(placeId);
-        return ResponseEntity.noContent().build();
-    }
-}
+

@@ -1,5 +1,6 @@
 package org.example.gestion_cinema.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +27,7 @@ public class Projection implements Serializable {
     private Salle salle;
     @ManyToOne
     private Film film;
-    @OneToMany(mappedBy = "projection")
+    @OneToMany(mappedBy = "projection" )
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Collection<Ticket> tickets;
     @ManyToOne

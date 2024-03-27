@@ -1,7 +1,8 @@
 package org.example.gestion_cinema.service.Imp;
 
-import org.example.gestion_cinema.entites.Place;
 import org.example.gestion_cinema.dtos.PlaceDto;
+import org.example.gestion_cinema.dtos.SalleDto;
+import org.example.gestion_cinema.entites.Place;
 import org.example.gestion_cinema.entites.Salle;
 import org.example.gestion_cinema.repository.PlaceRepository;
 import org.example.gestion_cinema.service.IPlaceService;
@@ -21,13 +22,10 @@ public class PlaceService implements IPlaceService {
 
     @Autowired
     private ModelMapper modelMapper;
+
     @Override
     public List<PlaceDto> getAllPlaces() {
-        List<Place> places = placeRepository.findAll();
-        return places.stream()
-                .map(place -> modelMapper.map(place, PlaceDto.class))
-                .collect(Collectors.toList());
-
+        return null;
     }
 
     @Override
@@ -39,31 +37,17 @@ public class PlaceService implements IPlaceService {
 
     @Override
     public PlaceDto updatePlace(Long placeId, PlaceDto placeDto) {
-        Optional<Place> existingPlaceOptional = placeRepository.findById(placeId);
-        if (existingPlaceOptional.isPresent()) {
-            Place existingPlace = existingPlaceOptional.get();
-            existingPlace.setNumero(placeDto.getNumero());
-
-
-            // Mettez à jour la salle si nécessaire
-            if (placeDto.getSalle() != null) {
-                existingPlace.setSalle(modelMapper.map(placeDto.getSalle(), Salle.class));
-            }
-
-            Place updatedPlace = placeRepository.save(existingPlace);
-            return modelMapper.map(updatedPlace, PlaceDto.class);
-        } else {
-            throw new EntityNotFoundException("Place not found with id: " + placeId);
-        }
+        return null;
     }
 
     @Override
     public void deletePlace(Long placeId) {
-        if (placeRepository.existsById(placeId)) {
-            placeRepository.deleteById(placeId);
-        } else {
-            throw new EntityNotFoundException("Place not found with id: " + placeId);
-        }
 
     }
+
+    @Override
+    public PlaceDto getPlaceById(Long id) {
+        return null;
+    }
 }
+
