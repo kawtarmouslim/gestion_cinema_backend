@@ -19,6 +19,9 @@ public class Utilisateur {
     private Long id;
     private String nom;
     private String tel;
-    private String username;
+    private RoleUser role;
     private String password;
+    private String nomUtilisateur;
+
+
 }
