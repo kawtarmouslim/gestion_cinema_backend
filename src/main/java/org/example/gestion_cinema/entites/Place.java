@@ -18,5 +18,6 @@ public class Place implements Serializable {
     private Long id;
     private String numero;
     private String rangee;
+    private boolean estReservee;
 
 }

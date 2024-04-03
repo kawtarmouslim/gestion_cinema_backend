@@ -61,15 +61,17 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint((AuthenticationEntryPoint) unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->{
-                            auth.antMatchers("/api/**").permitAll();
+                            auth.antMatchers("/api/auth/signup").permitAll();
+                            auth.antMatchers("/api/auth/signin").permitAll();
 
-                            auth.antMatchers(HttpMethod.GET, "/api/cinemas/**").hasAnyRole("RESPONSABLE", "TECHNICIEN");
+
+                    auth.antMatchers(HttpMethod.GET, "/api/cinemas/**").hasAnyRole("RESPONSABLE", "TECHNICIEN");
                             auth.antMatchers(HttpMethod.POST, "/api/cinemas").hasAnyRole("RESPONSABLE");
                             auth.antMatchers(HttpMethod.PUT, "/api/cinemas**").hasAnyRole("RESPONSABLE");
                             auth.antMatchers(HttpMethod.DELETE, "/api/cinemas**").hasAnyRole("RESPONSABLE");
 
-                            auth.antMatchers(HttpMethod.GET, "/api/clients/**").hasAnyRole("RESPONSABLE", "TECHNICIEN");
-                            auth.antMatchers(HttpMethod.POST, "/api/clients").hasAnyRole("TECHNICIEN");
+                            auth.antMatchers(HttpMethod.GET, "/api/clients/**").hasAnyRole("RESPONSABLE");
+                            auth.antMatchers(HttpMethod.POST, "/api/clients").hasAnyRole("RESPONSABLE");
                             auth.antMatchers(HttpMethod.PUT, "/api/clients/**").hasAnyRole("TECHNICIEN");
                             auth.antMatchers(HttpMethod.DELETE, "/api/clients/**").hasAnyRole("TECHNICIEN");
 

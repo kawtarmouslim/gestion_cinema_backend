@@ -12,10 +12,12 @@ import java.util.Date;
 @Entity  @Data
 @AllArgsConstructor @NoArgsConstructor @ToString
 public class Seance implements Serializable {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Temporal(TemporalType.TIME)
-    private Date heurDebut;
+    private Date heureDebut;
 
 
 }

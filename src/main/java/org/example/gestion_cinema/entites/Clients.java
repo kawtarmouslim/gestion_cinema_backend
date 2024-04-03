@@ -18,6 +18,7 @@ public class Clients {
     private Long id;
     private String nom;
     private String tel;
+    private String email;
 
     public Clients(Long id, String nom) {
         this.id = id;

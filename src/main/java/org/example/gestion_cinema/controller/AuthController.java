@@ -62,7 +62,8 @@ public class AuthController {
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
-                roles));
+                roles
+        ));
     }
 
     @PostMapping("/signup")
@@ -85,6 +86,7 @@ public class AuthController {
                 encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
+        System.out.println("**************"+strRoles);
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
@@ -94,7 +96,7 @@ public class AuthController {
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
-                    case "responsable":
+                    case "ROLE_RESPONSABLE":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_RESPONSABLE)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);

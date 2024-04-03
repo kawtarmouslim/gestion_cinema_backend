@@ -13,6 +13,7 @@ public class ClientsDto implements Serializable {
     Long id;
     String nom;
     String tel;
+    String email;
     public ClientsDto(Long id, String nom) {
         this.id = id;
         this.nom = nom;

@@ -16,14 +16,29 @@ public class TicketController {
     private ITicketService ticketService;
     @PostMapping("/add")
     public ResponseEntity<TicketDto> creerTicket(@RequestBody TicketDto ticketDto) {
-        TicketDto nouveauBillet = ticketService.createTicket(ticketDto);
-        return new ResponseEntity<>(nouveauBillet, HttpStatus.CREATED);
+        TicketDto creatrTicket = ticketService.createTicket(ticketDto);
+        return new ResponseEntity<>(creatrTicket, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<TicketDto>> getAllTickets() {
         List<TicketDto> allTickets = ticketService.getAllTickets();
         return new ResponseEntity<>(allTickets, HttpStatus.OK);
+    }
+    @GetMapping("/{ticketId}")
+    public ResponseEntity<TicketDto> getTicketById(@PathVariable Long ticketId) {
+        TicketDto ticketDto = ticketService.getTicketById(ticketId);
+        return ResponseEntity.ok(ticketDto);
+    }
+    @PutMapping("/update/{ticketId}")
+    public ResponseEntity<TicketDto> updateTicket(@PathVariable Long ticketId, @RequestBody TicketDto ticketDto) {
+        TicketDto updatedTicket = ticketService.updateTicket(ticketId, ticketDto);
+        return new ResponseEntity<>(updatedTicket, HttpStatus.OK);
+    }
+    @DeleteMapping("/delete/{ticketId}")
+    public ResponseEntity<Void> deleteTicket(@PathVariable Long ticketId) {
+        ticketService.deleteTicket(ticketId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

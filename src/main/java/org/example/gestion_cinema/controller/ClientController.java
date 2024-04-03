@@ -7,6 +7,7 @@ import org.example.gestion_cinema.service.IUtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class ClientController {
         ClientsDto  clientsDto= iClientService.getClientById(id);
         return ResponseEntity.ok(clientsDto);
     }
+    //@PreAuthorize("hasAuthority('ROLE_RESPONSABLE')")
     @PostMapping
     public ResponseEntity<ClientsDto> createClient(@RequestBody ClientsDto clientsDto) {
         ClientsDto nouveauClient = iClientService.createClient(clientsDto);

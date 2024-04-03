@@ -14,11 +14,14 @@ import java.util.Date;
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor @ToString
 public class Film implements Serializable {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titre;
     private String realisateur;
-    private int duree;
+    private Date dateFilm;
+
+
     private String genre;
     private String cheminImage;
     @OneToMany(mappedBy = "film")
