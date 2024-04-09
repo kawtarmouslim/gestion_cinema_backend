@@ -14,6 +14,7 @@ import java.util.List;
 public class SalleController {
     @Autowired
     private ISalleService salleService;
+
     @GetMapping("/{salleId}")
     public ResponseEntity<SalleDto> getSalleById(@PathVariable Long salleId) {
         SalleDto salleDto = salleService.getSalleById(salleId);

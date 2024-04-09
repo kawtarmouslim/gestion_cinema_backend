@@ -1,5 +1,6 @@
 package org.example.gestion_cinema.controller;
 
+import org.example.gestion_cinema.dtos.CinemaDto;
 import org.example.gestion_cinema.dtos.FilmDto;
 import org.example.gestion_cinema.service.IFilmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,9 @@ public class FilmController {
     }
 
     @PutMapping("/{filmId}")
-    public ResponseEntity<FilmDto> updateFilm(@PathVariable Long filmId, @RequestBody FilmDto filmDto) {
-        FilmDto updatedFilm = filmService.updateFilm(filmId, filmDto);
-        return updatedFilm != null
-                ? new ResponseEntity<>(updatedFilm, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        public ResponseEntity<FilmDto> updateFilm(@PathVariable Long filmId, @RequestBody FilmDto filmDto) {
+            FilmDto updatedFilm = filmService.updateFilm(filmId, filmDto);
+            return ResponseEntity.ok(updatedFilm);
     }
 
     @DeleteMapping("/{filmId}")

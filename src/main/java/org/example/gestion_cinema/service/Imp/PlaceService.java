@@ -25,7 +25,10 @@ public class PlaceService implements IPlaceService {
 
     @Override
     public List<PlaceDto> getAllPlaces() {
-        return null;
+        return placeRepository.findAll().stream()
+                .filter(place -> !place.isEstReservee()) // Filtrer les places non réservées
+                .map(place -> modelMapper.map(place, PlaceDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.example.gestion_cinema.entites.Projection;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -15,9 +16,8 @@ public class FilmDto implements Serializable {
     Long id;
     String titre;
     String realisateur;
-    int duree;
+    Date dateFilm;
     String genre;
     String cheminImage;
-    Collection<Projection> projections;
 
 }

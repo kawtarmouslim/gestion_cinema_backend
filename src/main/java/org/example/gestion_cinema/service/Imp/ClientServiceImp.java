@@ -26,7 +26,7 @@ public class ClientServiceImp implements IClientService {
     public List<ClientsDto> getAllClient() {
         List<Clients> clients = clientRepository.findAll();
         return clients.stream()
-                .map(utilisateur -> modelMapper.map(clients, ClientsDto.class))
+                .map(client -> modelMapper.map(client, ClientsDto.class)) // Correction ici
                 .collect(Collectors.toList());
 
     }
@@ -48,8 +48,13 @@ public class ClientServiceImp implements IClientService {
 
     @Override
     public ClientsDto updateClient(Long id, ClientsDto clientsDto) {
-       Clients existingClient = clientRepository.findById(id)
+        Clients existingClient = clientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Client non trouvé avec l'ID : " + id));
+
+        // Configurez modelMapper pour ignorer l'identifiant lors du mappage
+        modelMapper.typeMap(ClientsDto.class, Clients.class)
+                .addMappings(mapper -> mapper.skip(Clients::setId));
+
         modelMapper.map(clientsDto, existingClient);
         Clients updatedClients = clientRepository.save(existingClient);
         return modelMapper.map(updatedClients, ClientsDto.class);

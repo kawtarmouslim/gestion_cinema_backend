@@ -1,6 +1,8 @@
 package org.example.gestion_cinema.service.Imp;
 
+import org.example.gestion_cinema.dtos.ClientsDto;
 import org.example.gestion_cinema.dtos.FilmDto;
+import org.example.gestion_cinema.entites.Clients;
 import org.example.gestion_cinema.entites.Film;
 import org.example.gestion_cinema.repository.FilmRepository;
 import org.example.gestion_cinema.service.IFilmService;
@@ -42,14 +44,16 @@ public class FilmServiceImp implements IFilmService {
 
     @Override
     public FilmDto updateFilm(Long filmId, FilmDto filmDto) {
-        Optional<Film> existingFilmOptional = filmRepository.findById(filmId);
-        if (existingFilmOptional.isPresent()) {
-            Film existingFilm = existingFilmOptional.get();
-            modelMapper.map(filmDto, existingFilm);
-            Film updatedFilm = filmRepository.save(existingFilm);
-            return modelMapper.map(updatedFilm, FilmDto.class);
-        }
-        return null; // Gérer le cas où le film n'est pas trouvé
+        Film existingFilm = filmRepository.findById(filmId)
+                .orElseThrow(() -> new EntityNotFoundException("Film non trouvé avec l'ID : " + filmId));
+
+        // Configurez modelMapper pour ignorer l'identifiant lors du mappage
+        modelMapper.typeMap(FilmDto.class, Film.class)
+                .addMappings(mapper -> mapper.skip(Film::setId));
+
+        modelMapper.map(filmDto, existingFilm);
+        Film updatedFilm = filmRepository.save(existingFilm);
+        return modelMapper.map(updatedFilm, FilmDto.class);
     }
     public void deleteFilm(Long filmId) {
 

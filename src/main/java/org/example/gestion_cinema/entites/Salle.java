@@ -11,19 +11,22 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor @ToString
+@Data @NoArgsConstructor
+@AllArgsConstructor
+
 public class Salle implements Serializable {
 @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private int nombrePlace;
     @OneToMany(mappedBy = "salle")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Collection<Projection> projections;
-    //    @ManyToOne
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//    private Cinema cinema;
-//    @OneToMany(mappedBy = "salle")
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//    private Collection<Place>places;
+    public String toString() {
+        return "Salle{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", nombrePlace=" + nombrePlace +
+                '}';
+    }
 }

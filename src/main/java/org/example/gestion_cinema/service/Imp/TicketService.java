@@ -26,19 +26,15 @@ public class TicketService implements ITicketService {
     private ModelMapper modelMapper;
     @Override
     public TicketDto createTicket(TicketDto ticketDto) {
-        // Mapper l'objet TicketDto avec une entité Ticket
         Ticket ticket = modelMapper.map(ticketDto, Ticket.class);
-        // Calculer le prix du ticket en fonction de la place et de la projection
-        double prixBase = ticket.getProjection().getPrix(); // Prix de base de la projection
-        double prixPlace = ticket.getPlace().getRangee().equals("VIP") ? prixBase * 1.5 : prixBase; // Si la place est VIP, appliquer un coefficient de majoration
-        // Modifier le prix du ticket
+        double prixBase = ticket.getProjection().getPrix();
+        double prixPlace = ticket.getPlace().getRangee().equals("VIP") ? prixBase * 1.5 : prixBase;
         ticket.setPrix(prixPlace);
-        ticket.setPlace(modelMapper.map(ticketDto.getPlace(), Place.class)); // Mapper la place
-        ticket.setProjection(modelMapper.map(ticketDto.getProjection(), Projection.class)); // Mapper la projection
-        // Mapper l'entité Ticket modifiée avec un DTO pour retourner
-       Ticket savedTicket = ticketRepository.save(ticket);
+        Place place = ticket.getPlace();
+        place.setEstReservee(true);
+        Ticket savedTicket = ticketRepository.save(ticket);
         return modelMapper.map(savedTicket, TicketDto.class);
-  //    return modelMapper.map(ticket, TicketDto.class);
+
     }
 
 

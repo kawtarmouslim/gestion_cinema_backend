@@ -8,14 +8,16 @@ import lombok.Value;
 import java.io.Serializable;
 @Data
 @AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 public class TicketDto implements Serializable {
     Long id;
     double prix;
     private ClientsDto client;
     PlaceDto place;
     ProjectionDto projection;
+
     // Ajoutez ce constructeur sans arguments
-    public TicketDto() {
-    }
+//    public TicketDto() {
+//    }
 }
+

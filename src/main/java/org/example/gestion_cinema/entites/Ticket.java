@@ -19,20 +19,19 @@ public class Ticket implements Serializable {
     private Place place;
     @ManyToOne
     @JoinColumn(name = "projection_id")
+    @ToString.Exclude
     private Projection projection;
     @ManyToOne
     @JoinColumn(name = "id_client")
     private Clients client;
-//    private Long id;
-//    private double prix;
-//    @ManyToOne
-//    @JoinColumn(name = "place_id")
-//    private Place place;
-//    @ManyToOne(cascade = CascadeType.PERSIST) // Adjusted to include cascade option
-//    @JoinColumn(name = "projection_id")
-//    private Projection projection;
-//    @ManyToOne
-//    @JoinColumn(name = "id_client")
-//    private Clients client;
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", prix=" + prix +
+                // Ajoutez d'autres propriétés ici si nécessaire
+                '}';
+    }
 }
+
+
 

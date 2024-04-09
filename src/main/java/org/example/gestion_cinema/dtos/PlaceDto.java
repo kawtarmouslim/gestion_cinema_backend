@@ -15,4 +15,5 @@ public class PlaceDto implements Serializable {
     Long id;
     String numero;
     String rangee;
+    boolean estReservee;
 }
