@@ -10,9 +10,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class SalleDto implements Serializable {
+public class
+SalleDto implements Serializable {
     Long id;
     String name;
     int nombrePlace;
+
 
 }

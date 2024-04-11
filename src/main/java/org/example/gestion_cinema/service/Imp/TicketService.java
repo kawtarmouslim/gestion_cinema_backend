@@ -24,6 +24,7 @@ public class TicketService implements ITicketService {
     private TicketRepository ticketRepository;
     @Autowired
     private ModelMapper modelMapper;
+
     @Override
     public TicketDto createTicket(TicketDto ticketDto) {
         Ticket ticket = modelMapper.map(ticketDto, Ticket.class);
@@ -42,8 +43,12 @@ public class TicketService implements ITicketService {
     public List<TicketDto> getAllTickets() {
         List<Ticket> tickets = ticketRepository.findAll();
         return tickets.stream()
-                .map(ticket -> modelMapper.map(ticket, TicketDto.class))
+                .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    private TicketDto convertToDto(Ticket ticket) {
+        return modelMapper.map(ticket, TicketDto.class);
     }
 }
 

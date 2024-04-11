@@ -24,6 +24,13 @@ public class Ticket implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_client")
     private Clients client;
+    @ManyToOne
+    @JoinColumn(name = "salle_id")
+    private Salle salle;
+
+    @ManyToOne
+    @JoinColumn(name = "film_id")
+    private Film film;
     public String toString() {
         return "Ticket{" +
                 "id=" + id +

@@ -2,6 +2,8 @@ package org.example.gestion_cinema.controller;
 
 import org.example.gestion_cinema.dtos.TicketDto;
 import org.example.gestion_cinema.service.ITicketService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import java.util.List;
 public class TicketController {
     @Autowired
     private ITicketService ticketService;
+    private final Logger logger = LoggerFactory.getLogger(TicketController.class);
     @PostMapping("/add")
     public ResponseEntity<TicketDto> creerTicket(@RequestBody TicketDto ticketDto) {
         TicketDto nouveauBillet = ticketService.createTicket(ticketDto);
@@ -24,6 +27,7 @@ public class TicketController {
     @GetMapping
     public ResponseEntity<List<TicketDto>> getAllTickets() {
         List<TicketDto> allTickets = ticketService.getAllTickets();
+        allTickets.forEach(System.out::println);
         return new ResponseEntity<>(allTickets, HttpStatus.OK);
     }
 

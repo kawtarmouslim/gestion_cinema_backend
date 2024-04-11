@@ -20,4 +20,5 @@ public class FilmDto implements Serializable {
     String genre;
     String cheminImage;
 
+
 }

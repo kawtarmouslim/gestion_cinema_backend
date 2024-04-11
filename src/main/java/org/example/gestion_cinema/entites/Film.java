@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.example.gestion_cinema.dtos.FilmDto;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.Date;
 
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor
-public class Film implements Serializable {
+public class Film {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String titre;

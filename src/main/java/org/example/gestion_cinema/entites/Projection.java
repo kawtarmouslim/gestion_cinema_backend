@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.example.gestion_cinema.dtos.ProjectionDto;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,7 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Projection implements Serializable {
+public class Projection{
     @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private Date dateProjection;
