@@ -1,5 +1,6 @@
 package org.example.gestion_cinema.config;
 
+import org.apache.catalina.filters.CorsFilter;
 import org.example.gestion_cinema.security.jwt.AuthEntryPointJwt;
 import org.example.gestion_cinema.security.jwt.AuthTokenFilter;
 import org.example.gestion_cinema.security.services.UserDetailsServiceImpl;
@@ -18,8 +19,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableMethodSecurity
@@ -57,10 +65,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+       http.cors().and();
         http.csrf(csrf -> csrf.disable())
                 .exceptionHandling(exception -> exception.authenticationEntryPoint((AuthenticationEntryPoint) unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->{
+                    auth.antMatchers("/api/auth/**").permitAll();
                             auth.antMatchers("/api/auth/signup").permitAll();
                             auth.antMatchers("/api/auth/signin").permitAll();
 
@@ -127,4 +137,22 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
+
+//    @Bean
+//    public CorsFilter corsFilter() {
+//        CorsConfiguration corsConfiguration = new CorsConfiguration();
+//        corsConfiguration.setAllowCredentials(true);
+//        corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200"));
+//        corsConfiguration.setAllowedHeaders(Arrays.asList("Origin", "Access-Control-Allow-Origin", "Content-Type",
+//                "Accept", "Authorization", "Origin, Accept", "X-Requested-With",
+//                "Access-Control-Request-Method", "Access-Control-Request-Headers"));
+//        corsConfiguration.setExposedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization",
+//                "Access-Control-Allow-Origin", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
+//        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+//        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+//        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+//        return new CorsFilter();
+//    }
 }

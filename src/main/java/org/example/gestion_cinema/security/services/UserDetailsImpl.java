@@ -36,6 +36,7 @@ public class UserDetailsImpl implements UserDetails {
         this.id = id;
         this.username = username;
         this.email = String.valueOf(email);
+//        this.email = String.valueOf(email);
         this.password = password;
         this.authorities = authorities;
     }
