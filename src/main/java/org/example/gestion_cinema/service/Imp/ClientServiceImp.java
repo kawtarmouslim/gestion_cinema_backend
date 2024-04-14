@@ -2,7 +2,9 @@ package org.example.gestion_cinema.service.Imp;
 
 import lombok.AllArgsConstructor;
 import org.example.gestion_cinema.dtos.ClientsDto;
+import org.example.gestion_cinema.dtos.SalleDto;
 import org.example.gestion_cinema.entites.Clients;
+import org.example.gestion_cinema.entites.Salle;
 import org.example.gestion_cinema.entites.Utilisateur;
 import org.example.gestion_cinema.repository.ClientRepository;
 import org.example.gestion_cinema.repository.UtilisateurRepository;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,17 +51,18 @@ public class ClientServiceImp implements IClientService {
 
     @Override
     public ClientsDto updateClient(Long id, ClientsDto clientsDto) {
-        Clients existingClient = clientRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Client non trouvé avec l'ID : " + id));
 
-        // Configurez modelMapper pour ignorer l'identifiant lors du mappage
-        modelMapper.typeMap(ClientsDto.class, Clients.class)
-                .addMappings(mapper -> mapper.skip(Clients::setId));
+        Optional<Clients> existingClientOptional = clientRepository.findById(id);
+        if (existingClientOptional.isPresent()) {
+            Clients existingClient = existingClientOptional.get();
+            existingClient.setNom(clientsDto.getNom());
+            existingClient.setTel(clientsDto.getTel());
 
-        modelMapper.map(clientsDto, existingClient);
-        Clients updatedClients = clientRepository.save(existingClient);
-        return modelMapper.map(updatedClients, ClientsDto.class);
-
+            Clients updatedClient = clientRepository.save(existingClient);
+            return modelMapper.map(updatedClient, ClientsDto.class);
+        } else {
+            throw new EntityNotFoundException("CLIENT not found with id: " + id);
+        }
     }
 
     @Override

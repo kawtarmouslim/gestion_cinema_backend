@@ -3,6 +3,7 @@ package org.example.gestion_cinema.service.Imp;
 import org.example.gestion_cinema.dtos.ClientsDto;
 import org.example.gestion_cinema.dtos.ProjectionDto;
 import org.example.gestion_cinema.dtos.TicketDto;
+import org.example.gestion_cinema.entites.Clients;
 import org.example.gestion_cinema.entites.Place;
 import org.example.gestion_cinema.entites.Projection;
 import org.example.gestion_cinema.entites.Ticket;
@@ -14,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,6 +47,27 @@ public class TicketService implements ITicketService {
         return tickets.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public TicketDto updateTicket(Long ticketId, TicketDto ticketDto) {
+        Ticket existingTicket= ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new EntityNotFoundException("Ticket non trouvé avec l'ID : " + ticketId));
+        modelMapper.typeMap(TicketDto.class, Ticket.class)
+                .addMappings(mapper -> mapper.skip(Ticket::setId));
+
+        modelMapper.map(ticketDto, existingTicket);
+        Ticket updatedTicket = ticketRepository.save(existingTicket);
+        return modelMapper.map(updatedTicket, TicketDto.class);
+    }
+
+    @Override
+    public void deleteTicket(Long ticketId) {
+        if (!ticketRepository.existsById(ticketId)) {
+            throw new EntityNotFoundException("ticket non trouvé avec l'ID : " + ticketId);
+        }
+        ticketRepository.deleteById(ticketId);
+
     }
 
     private TicketDto convertToDto(Ticket ticket) {

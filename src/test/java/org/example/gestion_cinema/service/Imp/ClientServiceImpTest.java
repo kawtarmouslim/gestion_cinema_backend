@@ -114,8 +114,14 @@ class ClientServiceImpTest {
         ClientRepository clientRepository = mock(ClientRepository.class);
         ModelMapper modelMapper = mock(ModelMapper.class);
         when(clientRepository.findById(id)).thenReturn(Optional.of(existingClient));
+
+        // Correction : Simulation de la conversion avec ModelMapper
         when(modelMapper.map(clientsDto, Clients.class)).thenReturn(updatedClient);
+
+        // Correction : Simulation de la sauvegarde et retour d'un client mis à jour non null
         when(clientRepository.save(updatedClient)).thenReturn(updatedClient);
+
+        // Correction : Simulation de la conversion inverse avec ModelMapper
         when(modelMapper.map(updatedClient, ClientsDto.class)).thenReturn(expectedDto);
 
         // Exécution de la méthode à tester
@@ -125,7 +131,6 @@ class ClientServiceImpTest {
         // Vérification
         assertNotNull(result);
         assertEquals(expectedDto, result);
-
     }
 
 

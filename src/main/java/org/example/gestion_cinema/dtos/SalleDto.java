@@ -15,6 +15,7 @@ SalleDto implements Serializable {
     Long id;
     String name;
     int nombrePlace;
-
+    public SalleDto(String name) {
+        this.name = name;}
 
 }

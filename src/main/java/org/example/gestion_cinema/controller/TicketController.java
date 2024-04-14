@@ -1,5 +1,6 @@
 package org.example.gestion_cinema.controller;
 
+import org.example.gestion_cinema.dtos.ClientsDto;
 import org.example.gestion_cinema.dtos.TicketDto;
 import org.example.gestion_cinema.service.ITicketService;
 import org.slf4j.Logger;
@@ -30,5 +31,17 @@ public class TicketController {
         allTickets.forEach(System.out::println);
         return new ResponseEntity<>(allTickets, HttpStatus.OK);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<TicketDto> updateTicket(@PathVariable Long id, @RequestBody TicketDto ticketDto) {
+        TicketDto ticketMaj = ticketService.updateTicket(id, ticketDto);
+        return ResponseEntity.ok(ticketMaj);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTicket(@PathVariable Long id) {
+        ticketService.deleteTicket(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 }

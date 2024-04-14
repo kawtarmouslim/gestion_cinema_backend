@@ -12,4 +12,5 @@ public interface IProjectionService {
     ProjectionDto updateProjection(Long projectionId, ProjectionDto projectionDto);
 
     ProjectionDto getProjectionById(Long id);
+    void deleteProjection(Long projectionId);
 }

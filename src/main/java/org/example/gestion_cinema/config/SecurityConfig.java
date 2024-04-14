@@ -74,13 +74,13 @@ public class SecurityConfig {
 
                             auth.antMatchers(HttpMethod.GET, "/api/clients/**").hasAnyRole("RESPONSABLE");
                             auth.antMatchers(HttpMethod.POST, "/api/clients").hasAnyRole("RESPONSABLE");
-                            auth.antMatchers(HttpMethod.PUT, "/api/clients/**").hasAnyRole("TECHNICIEN");
-                            auth.antMatchers(HttpMethod.DELETE, "/api/clients/**").hasAnyRole("TECHNICIEN");
+                            auth.antMatchers(HttpMethod.PUT, "/api/clients/**").hasAnyRole("RESPONSABLE");
+                            auth.antMatchers(HttpMethod.DELETE, "/api/clients/**").hasAnyRole("RESPONSABLE");
 
-                            auth.antMatchers(HttpMethod.GET, "/api/films/**").hasAnyRole("RESPONSABLE", "TECHNICIEN");
-                            auth.antMatchers(HttpMethod.POST, "/api/films").hasAnyRole("TECHNICIEN");
-                            auth.antMatchers(HttpMethod.PUT, "/api/films/**").hasAnyRole("TECHNICIEN");
-                            auth.antMatchers(HttpMethod.DELETE, "/api/films/**").hasAnyRole("TECHNICIEN");
+                            auth.antMatchers(HttpMethod.GET, "/api/films/**").hasAnyRole("RESPONSABLE");
+                            auth.antMatchers(HttpMethod.POST, "/api/films").hasAnyRole("RESPONSABLE");
+                            auth.antMatchers(HttpMethod.PUT, "/api/films/**").hasAnyRole("RESPONSABLE");
+                            auth.antMatchers(HttpMethod.DELETE, "/api/films/**").hasAnyRole("RESPONSABLE");
 
                             auth.antMatchers(HttpMethod.GET, "/api/places/**").hasAnyRole("RESPONSABLE");
                             auth.antMatchers(HttpMethod.POST, "/api/places").hasAnyRole("RESPONSABLE");

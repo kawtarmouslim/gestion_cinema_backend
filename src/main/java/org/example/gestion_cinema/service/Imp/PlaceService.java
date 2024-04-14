@@ -1,7 +1,9 @@
 package org.example.gestion_cinema.service.Imp;
 
+import org.example.gestion_cinema.dtos.FilmDto;
 import org.example.gestion_cinema.dtos.PlaceDto;
 import org.example.gestion_cinema.dtos.SalleDto;
+import org.example.gestion_cinema.entites.Film;
 import org.example.gestion_cinema.entites.Place;
 import org.example.gestion_cinema.entites.Salle;
 import org.example.gestion_cinema.repository.PlaceRepository;
@@ -40,17 +42,27 @@ public class PlaceService implements IPlaceService {
 
     @Override
     public PlaceDto updatePlace(Long placeId, PlaceDto placeDto) {
-        return null;
+
+        Place place = placeRepository.findById(placeId).orElseThrow(() -> new RuntimeException("Place not found"));
+        place.setNumero(String.valueOf(placeDto));
+        Place updatedPlace = placeRepository.save(place);
+        return modelMapper.map(updatedPlace, PlaceDto.class);
     }
 
     @Override
     public void deletePlace(Long placeId) {
 
+            if (!placeRepository.existsById(placeId)) {
+                throw new EntityNotFoundException("place non trouvé avec l'ID : " + placeId);
+            }
+            placeRepository.deleteById(placeId);
     }
 
     @Override
     public PlaceDto getPlaceById(Long id) {
-        return null;
+
+        Optional<Place> placeOptional = placeRepository.findById(id);
+        return placeOptional.map(place -> modelMapper.map(place, PlaceDto.class)).orElse(null);
     }
 }
 

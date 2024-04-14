@@ -44,17 +44,12 @@ public class ProjectionService implements IProjectionService {
             Projection existingProjection = existingProjectionOptional.get();
             existingProjection.setDateProjection(projectionDto.getDateProjection());
             existingProjection.setPrix(projectionDto.getPrix());
-
-            // Mettez à jour la salle si nécessaire
             if (projectionDto.getSalle() != null) {
                 existingProjection.setSalle(modelMapper.map(projectionDto.getSalle(), Salle.class));
             }
-
-            // Mettez à jour le film si nécessaire
             if (projectionDto.getFilm() != null) {
                 existingProjection.setFilm(modelMapper.map(projectionDto.getFilm(), Film.class));
             }
-
             Projection updatedProjection = projectionRepository.save(existingProjection);
             return modelMapper.map(updatedProjection, ProjectionDto.class);
         } else {
@@ -68,5 +63,13 @@ public class ProjectionService implements IProjectionService {
         return projectionOptional.map(projection -> modelMapper.map(projection, ProjectionDto.class)).orElse(null);
     }
 
+    @Override
+    public void deleteProjection(Long projectionId) {
+        if (!projectionRepository.existsById(projectionId)) {
+            throw new EntityNotFoundException("projection non trouvé avec l'ID : " + projectionId);
+        }
+        projectionRepository.deleteById(projectionId);
     }
+
+}
 

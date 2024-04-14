@@ -2,6 +2,7 @@ package org.example.gestion_cinema.controller;
 
 import org.example.gestion_cinema.dtos.ClientsDto;
 import org.example.gestion_cinema.dtos.ProjectionDto;
+import org.example.gestion_cinema.dtos.SalleDto;
 import org.example.gestion_cinema.service.IProjectionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,11 @@ public class ProjectionController {
         list.forEach(System.out::println);
         return ResponseEntity.ok(list); // Utilisez la liste déjà récupérée plutôt que de rappeler la méthode
     }
+    @GetMapping("/{projectionId}")
+    public ResponseEntity<ProjectionDto> getProjectionById(@PathVariable Long projectionId) {
+        ProjectionDto projectionDto = projectionService.getProjectionById(projectionId);
+        return new ResponseEntity<>(projectionDto, HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<ProjectionDto> createProjection(@RequestBody ProjectionDto projectionDto) {
@@ -41,5 +47,9 @@ public class ProjectionController {
         ProjectionDto updatedProjection = projectionService.updateProjection(projectionId, projectionDto);
         return new ResponseEntity<>(updatedProjection, HttpStatus.OK);
     }
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProjection(@PathVariable Long id) {
+        projectionService.deleteProjection(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

@@ -20,5 +20,7 @@ public class FilmDto implements Serializable {
     String genre;
     String cheminImage;
 
-
+    public FilmDto(String titre) {
+        this.titre = titre;
+    }
 }
