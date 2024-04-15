@@ -44,16 +44,20 @@ public class FilmServiceImp implements IFilmService {
 
     @Override
     public FilmDto updateFilm(Long filmId, FilmDto filmDto) {
-        Film existingFilm = filmRepository.findById(filmId)
-                .orElseThrow(() -> new EntityNotFoundException("Film non trouvé avec l'ID : " + filmId));
+        Optional<Film> existingFilmOptional = filmRepository.findById(filmId);
+        if (existingFilmOptional.isPresent()) {
+            Film existingFilm = existingFilmOptional.get();
+            existingFilm.setTitre(filmDto.getTitre());
+            existingFilm.setGenre(filmDto.getGenre());
+            existingFilm.setDateFilm(filmDto.getDateFilm());
+            existingFilm.setGenre(filmDto.getGenre());
+            existingFilm.setCheminImage(filmDto.getCheminImage());
 
-        // Configurez modelMapper pour ignorer l'identifiant lors du mappage
-        modelMapper.typeMap(FilmDto.class, Film.class)
-                .addMappings(mapper -> mapper.skip(Film::setId));
-
-        modelMapper.map(filmDto, existingFilm);
-        Film updatedFilm = filmRepository.save(existingFilm);
-        return modelMapper.map(updatedFilm, FilmDto.class);
+            Film updatedFilm = filmRepository.save(existingFilm);
+            return modelMapper.map(updatedFilm, FilmDto.class);
+        } else {
+            throw new EntityNotFoundException("fILM not found with id: " + filmId);
+        }
     }
     public void deleteFilm(Long filmId) {
 
