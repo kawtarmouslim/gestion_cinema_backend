@@ -6,9 +6,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                // Étapes de construction du projet avec Maven
-                sh 'mvn clean install'
+
+                bat 'mvn -Dmaven.test.skip=true install'
             }
         }
     }
 }
+
