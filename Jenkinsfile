@@ -10,6 +10,13 @@ pipeline {
                 bat 'mvn -Dmaven.test.skip=true install'
             }
         }
+         stage('Test'){
+                      steps{
+                          bat 'mvn test -Dtest=ClientServiceImpTest'
+                          bat 'mvn test -Dtest=CinemaServiceImplTest'
+                          bat 'mvn test -Dtest=FilmServiceImpTest'
+                      }
+                }
     }
 }
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
+//cette methode permet recher un utilisateur partit le nom dans un   basse de donner
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepository userRepository;

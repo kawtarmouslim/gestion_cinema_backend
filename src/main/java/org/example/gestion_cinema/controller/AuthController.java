@@ -45,6 +45,8 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
+    // vérifie les informations d'identification de l'utilisateur (nom d'utilisateur et mot de passe)
+    // et on génère un jeton JWT pour l'utilisateur authentifié
     public ResponseEntity<?> authenticateUser( @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -67,6 +69,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
+    //
     public ResponseEntity<?> registerUser( @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity

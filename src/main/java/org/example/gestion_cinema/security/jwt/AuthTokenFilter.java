@@ -26,17 +26,20 @@ public class AuthTokenFilter extends OncePerRequestFilter  {
     private UserDetailsServiceImpl userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
-
+//cette methode permet gerer le traitment de requet entrenant.
+// Il intercepte les requêtes HTTP entrantes pour vérifier la présence d'un token
+// JWT dans l'en-tête "Authorization".
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
             String jwt = parseJwt(request);
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+                //si le token valide extrait le nom utilisateur de token en utilise  jwtUtils
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
-
+                    // charger le detail de le utilissateur appretir de userDetailsService
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authentication =
+                UsernamePasswordAuthenticationToken authentication =//pour crre auth user
                         new UsernamePasswordAuthenticationToken(
                                 userDetails,
                                 null,
